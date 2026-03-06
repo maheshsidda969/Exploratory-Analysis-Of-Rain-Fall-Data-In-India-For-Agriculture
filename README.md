@@ -48,7 +48,6 @@ This project uses Python and popular data science libraries:
 
 🚀 How to Run the Project
 1️⃣ Clone the repository
-git clone https://github.com/afreenparveenshaik3335/Exploratory-Analysis-of-Rainfall-Data-in-India-for-Agriculture.git
 
 2️⃣ Install dependencies
 pip install -r requirements.txt
