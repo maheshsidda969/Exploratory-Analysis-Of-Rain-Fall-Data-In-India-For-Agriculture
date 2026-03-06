@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rainfall Prediction</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
+/* 🌤️ Background */
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.55)),
+        url("{{ url_for('static', filename='weather10.jpg') }}");
+
+    background-size:cover;
+    background-position:center;
+}
+
+/* 🌫️ Glass Card */
+.container{
+    width:400px;
+    padding:42px;
+
+    background:rgba(255,255,255,0.25);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+
+    border-radius:22px;
+    box-shadow:0 30px 70px rgba(0,0,0,0.6);
+
+    text-align:center;
+    color:#fff;
+
+    animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* 🌧️ Title */
+h2{
+    font-size:30px;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    font-size:14px;
+    opacity:0.9;
+    margin-bottom:22px;
+}
+
+/* ⚠️ Error */
+.error{
+    color:#ffd6d6;
+    margin-bottom:12px;
+    font-size:14px;
+}
+
+/* 🧾 Inputs */
+input{
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+
+    border:none;
+    border-radius:14px;
+
+    font-size:14px;
+    background:rgba(255,255,255,0.92);
+}
+
+input::placeholder{
+    color:#555;
+}
+
+input:focus{
+    outline:none;
+    box-shadow:0 0 0 3px rgba(0,180,216,0.8);
+}
+
+/* 🔮 Button */
+button{
+    width:100%;
+    padding:15px;
+    margin-top:18px;
+
+    border:none;
+    border-radius:16px;
+
+    background:linear-gradient(135deg,#00b4d8,#0077b6);
+    color:white;
+
+    font-size:16px;
+    font-weight:500;
+    cursor:pointer;
+
+    transition:all 0.3s ease;
+}
+
+button:hover{
+    transform:translateY(-4px);
+    box-shadow:0 15px 30px rgba(0,119,182,0.7);
+}
+
+button:active{
+    transform:scale(0.97);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🌧️ Rainfall Prediction</h2>
+<p class="subtitle">Enter weather details to predict rainfall</p>
+
+<p id="errorMsg" class="error"></p>
+
+<form action="/predict" method="post" onsubmit="return validateForm()">
+
+<input type="number" step="any" name="MinTemp" placeholder="Min Temperature (°C)">
+<input type="number" step="any" name="MaxTemp" placeholder="Max Temperature (°C)">
+<input type="number" step="any" name="Rainfall" placeholder="Rainfall (mm)">
+<input type="number" step="any" name="Humidity3pm" placeholder="Humidity at 3 PM (%)">
+<input type="number" step="any" name="Pressure3pm" placeholder="Pressure at 3 PM (hPa)">
+
+<button type="submit">Predict Rainfall</button>
+
+</form>
+
+</div>
+
+<script>
+function validateForm(){
+    let inputs = document.querySelectorAll("input");
+    let error = document.getElementById("errorMsg");
+
+    for(let i=0;i<inputs.length;i++){
+        if(inputs[i].value.trim() === ""){
+            error.innerText = "⚠️ Please fill in all fields";
+            return false;
+        }
+    }
+    error.innerText = "";
+    return true;
+}
+</script>
+
+</body>
+</html>
